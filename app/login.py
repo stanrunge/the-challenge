@@ -1,32 +1,49 @@
 import tkinter as tk
 import json
+import os
 
 window = tk.Tk()
 window.title("AquaPure Login")
+icon = tk.Image("photo", file="app/assets/logo with text.png")
+window.iconphoto(True, icon)
 
-usernamelabel = tk.Label(text="Enter username:")
-usernameentry = tk.Entry()
+frm_top = tk.Frame()
+frm_top.pack()
 
-passwordlabel = tk.Label(text="Enter password:")
-passwordentry = tk.Entry(show="*")
+frm_bottom = tk.Frame()
+frm_bottom.pack()
+
+lbl_email = tk.Label(master=frm_top, text="E-mail:")
+lbl_email.pack()
+
+usernameentry = tk.Entry(master=frm_top)
+usernameentry.pack()
+
+lbl_password = tk.Label(master=frm_top, text="Wachtwoord:")
+lbl_password.pack()
+
+passwordentry = tk.Entry(master=frm_top, show="*")
+passwordentry.pack()
 
 def submitinfo():
-    data = {}
-    data['credentials'] = []
-    data["credentials"].append({
-        'username': usernameentry.get(),
-        'password': passwordentry.get()
-    })
+    credentials = {
+        "username": usernameentry.get(),
+        "password": passwordentry.get()
+    }
     
     with open("app/config.json", "w") as config:
-        json.dump(data, config)
+        json.dump(credentials, config)
 
-submitbutton = tk.Button(text="Submit", command=submitinfo)
+    window.destroy()
 
-usernamelabel.pack()
-usernameentry.pack()
-passwordlabel.pack()
-passwordentry.pack()
+submitbutton = tk.Button(master=frm_top, text="Verstuur", command=submitinfo)
 submitbutton.pack()
 
+button_changePassword = tk.Button(master=frm_bottom, text="Wachtwoord vergeten?")
+button_changePassword.pack()
+
+button_createAccount = tk.Button(master=frm_bottom, text="Maak een account")
+button_createAccount.pack()
+
 window.mainloop()
+exec(open("app/dashboard.py").read())
