@@ -2,13 +2,13 @@ import tkinter as tk
 import json
 from tkinter.font import BOLD
 
-config = json.load(open("app/config.json"))
+config = json.load(open("config.json"))
 
 window = tk.Tk()
 window.title("AquaPure Dashboard")
-window.iconbitmap("app/assets/logo.ico")
-icon = tk.Image("photo", file="app/assets/logo with text.png")
-window.iconphoto(True, icon)
+# window.iconbitmap("assets/logo.ico")
+# icon = tk.Image("photo", file="assets/logo with text.png")
+# window.iconphoto(True, icon)
 
 # Top bar
 frame_top = tk.Frame()
@@ -22,16 +22,17 @@ lbl_user.grid(column=2, row=0)
 frame_devices = tk.Frame()
 frame_devices.pack()
 
+
 # Device class
-class Device():
-    
+class Device:
+
     def __init__(self, deviceid, status):
         name = "Apparaat"
         temperature = 10
         ph = 7
         conductivity = 10
         turbidity = 1
-        
+
         if status == "OK":
             statuscolor = "#9dff73"
         else:
@@ -42,7 +43,8 @@ class Device():
         lbl_status = tk.Label(master=frame_device, text=status, bg=statuscolor)
         lbl_reading1 = tk.Label(master=frame_device, text="Temperatuur: " + str(temperature) + "°C", bg=statuscolor)
         lbl_reading2 = tk.Label(master=frame_device, text="pH-niveau: " + str(ph), bg=statuscolor)
-        lbl_reading3 = tk.Label(master=frame_device, text="Geleidbaarheid: " + str(conductivity) + "ms/cm", bg=statuscolor)
+        lbl_reading3 = tk.Label(master=frame_device, text="Geleidbaarheid: " + str(conductivity) + "ms/cm",
+                                bg=statuscolor)
         lbl_reading4 = tk.Label(master=frame_device, text="Troebelheid: " + str(turbidity) + " NTU", bg=statuscolor)
 
         frame_device.grid(column=deviceid, row=0)
